@@ -8,27 +8,32 @@
  * 
  */
 
-import { createStore, combineReducers } from "redux";
+import thunkMiddleware from 'redux-thunk';
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware,
+  compose } from 'redux';
 import {
   persistCombineReducers,
   persistStore,
   persistReducer
-} from "redux-persist";
-import storage from "redux-persist/es/storage";
+} from 'redux-persist';
+import storage from 'redux-persist/es/storage';
 
-import NavigationReducer from "./reducers/NavigationReducer";
-import storyReducer from "./reducers/StoryReducer";
-import loginReducer from "./reducers/LoginReducer";
+import NavigationReducer from './reducers/NavigationReducer';
+import storyReducer from './reducers/StoryReducer';
+import loginReducer from './reducers/LoginReducer';
 
 // config for story reducer
 const config = {
-  key: "root",
+  key: 'root',
   storage
 };
 
 // config for login reducer (potential future use)
 const config1 = {
-  key: "primary",
+  key: 'primary',
   storage
 };
 
@@ -53,7 +58,10 @@ const rootReducer = combineReducers({
 function configureStore() {
 
   // allow use of redux debug tools in react native debugger
-  let store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+  let store = createStore(
+    rootReducer,
+    compose(applyMiddleware(thunkMiddleware), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  );
   let persistor = persistStore(store);
   return { persistor, store };
 

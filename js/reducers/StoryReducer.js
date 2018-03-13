@@ -6,13 +6,15 @@
  * 
  */
 
- import { addStory, clearStories, selectStory } from "../actions/ActionTypes";
+import { addStory, clearStories, selectStory, requestStories, receiveStories, requestStory, receiveStory } from '../actions/ActionTypes';
 
 const initialState = {
 
   stories: [],
   currentStory: 0,
   lastUpdated: 0,
+  isFetching: false,
+  topStories: [],
 
 };
 
@@ -34,6 +36,19 @@ const storyReducer = (state = initialState, action) => {
     case selectStory:
       let nextState = { ...state, currentStory: action.currentStory};
       return nextState;
+
+    // fetch stories from API
+    case requestStories:
+    
+      return { ...state, isFetching: true };
+
+    // do something with the data
+    case receiveStories:
+      return { ...state, topStories: action.topStories };
+
+    case requestStory:
+
+        return state;
 
     default:
       return state;

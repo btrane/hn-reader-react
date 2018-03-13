@@ -12,6 +12,10 @@ import NewsPage from './NewsPage';
 import {
   addStoryAction,
   clearStoriesAction,
+  requestStoriesAction,
+  requestStoryAction,
+  fetchTopStories,
+  fetchStory,
 } from '../actions/ActionCreator';
 
 class News extends Component {
@@ -31,7 +35,7 @@ class News extends Component {
     let timeElapsed = Date.now() - props.lastUpdated;
 
     // if we don't have any stories (or they're too old), refresh the store from the API
-    if (!props.stories || props.stories.length == 0 || (timeElapsed > cacheTime)) {
+    if (true || !props.stories || props.stories.length == 0 || (timeElapsed > cacheTime)) {
       this._getTopStoriesFromAPI();
     }
 
@@ -40,46 +44,17 @@ class News extends Component {
   // top stories API call, returns array of story IDs and calls populateStories on success
   _getTopStoriesFromAPI = () => {
 
+    const {
+      clearStoriesAction,
+      requestStoriesAction,
+      fetchTopStories,
+    } = this.props;
+
     // clear current stories from store
-    this.props.clearStoriesAction();
+    clearStoriesAction();
 
     // get array of top stories IDs
-    fetch('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty')
-      .then((res) => res.json())
-      .then((resJson) => {
-        this._populateStories(resJson);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-
-  }
-
-  // single story item API call, returns story JSON and adds it to store
-  _getItemFromAPI = (id) => {
-
-    fetch('https://hacker-news.firebaseio.com/v0/item/'+id+'.json?print=pretty')
-      .then((res) => res.json())
-      .then((resJson) => {
-        this.props.addStoryAction(resJson);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-
-  }
-
-  // adds each story item to the store, up to the limit
-  _populateStories = (idArray, limit = 25) => {
-
-    let count = 0;
-    for (var id of idArray) {
-
-      this._getItemFromAPI(id);
-      count++;
-      if (count >= limit) return;
-      
-    }
+    fetchTopStories();
 
   }
   
@@ -97,11 +72,15 @@ class News extends Component {
 const mapStateToProps = (state) => ({
   stories: state.StoryReducer.stories,
   lastUpdated: state.StoryReducer.lastUpdated
-})
+});
 
 const mapDispatchToProps = {
   addStoryAction,
-  clearStoriesAction
+  clearStoriesAction,
+  requestStoriesAction,
+  requestStoryAction,
+  fetchTopStories,
+  fetchStory,
 };
 
 const NewsScreen = connect(mapStateToProps, mapDispatchToProps)(News);

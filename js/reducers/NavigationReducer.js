@@ -11,8 +11,8 @@
 import AppNavigator from '../navigation/NavigationStack';
 
 // setup for future login integration
-const ActionForLoggedOut = AppNavigator.router.getActionForPathAndParams("home");
-const ActionForLoggedIn = AppNavigator.router.getActionForPathAndParams("news");
+const ActionForLoggedOut = AppNavigator.router.getActionForPathAndParams('home');
+const ActionForLoggedIn = AppNavigator.router.getActionForPathAndParams('news');
 
 const stateForLoggedOut = AppNavigator.router.getStateForAction(ActionForLoggedOut);
 const stateForLoggedIn = AppNavigator.router.getStateForAction(ActionForLoggedIn);
@@ -23,26 +23,26 @@ const navigationReducer = (state = initialState, action) => {
 
   switch (action.type) {
 
-    case "@@redux/INIT":
+    case '@@redux/INIT':
       return {
         ...state,
         stateForLoggedIn: AppNavigator.router.getStateForAction(ActionForLoggedIn, stateForLoggedOut)
       };
 
-    case "LOGIN":
+    case 'LOGIN':
       return {
         ...state,
         stateForLoggedIn: AppNavigator.router.getStateForAction(ActionForLoggedIn, stateForLoggedOut)
       };
 
-    case "LOGOUT":
+    case 'LOGOUT':
       return {
         ...state,
         stateForLoggedOut: AppNavigator.router.getStateForAction(
           NavigationActions.reset({
             index: 0,
             actions: [NavigationActions.navigate({
-              routeName: "home"
+              routeName: 'home'
             })]
           })
         )

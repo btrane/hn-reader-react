@@ -28,7 +28,7 @@ export default class HomeScreen extends Component {
   _navigate = () => {
 
     const navigateToNewsPage = NavigationActions.navigate({
-      routeName: "news"
+      routeName: 'news'
     });
     this.props.navigation.dispatch(navigateToNewsPage);
 

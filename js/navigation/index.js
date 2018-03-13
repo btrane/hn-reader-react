@@ -5,10 +5,10 @@
  * http://github.com/btrane
  */
 
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { addNavigationHelpers } from "react-navigation";
-import NavigationStack from "./NavigationStack";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addNavigationHelpers } from 'react-navigation';
+import NavigationStack from './NavigationStack';
 
 class AppNavigation extends Component {
 
