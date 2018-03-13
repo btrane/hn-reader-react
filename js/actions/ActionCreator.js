@@ -37,11 +37,6 @@ const requestStoryAction = (id) => ({
   id: id
 });
 
-const receiveStoryAction = (story) => ({
-  type: receiveStory,
-  story: story
-});
-
 export function fetchTopStories() {
 
   return (dispatch) => {
@@ -56,7 +51,7 @@ export function fetchTopStories() {
 
         let idArray = resJson;
         let count = 0;
-        let limit = 25; // hardcoded for now
+        let limit = 35; // hardcoded for now
         for (var id of idArray) {
     
           dispatch(fetchStory(id));
@@ -80,7 +75,6 @@ export function fetchStory(id) {
     return fetch('https://hacker-news.firebaseio.com/v0/item/'+id+'.json?print=pretty')
       .then((res) => res.json())
       .then((resJson) => {
-        console.log('RECEIVED STORY: ' + resJson);
         dispatch(addStoryAction(resJson));
       });
 
@@ -88,4 +82,4 @@ export function fetchStory(id) {
 
 }
 
-export { addStoryAction, clearStoriesAction, selectStoryAction, requestStoriesAction, receiveStoriesAction, requestStoryAction, receiveStoryAction };
+export { addStoryAction, clearStoriesAction, selectStoryAction, requestStoriesAction, receiveStoriesAction, requestStoryAction };

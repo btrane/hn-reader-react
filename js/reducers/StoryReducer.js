@@ -13,7 +13,6 @@ const initialState = {
   stories: [],
   currentStory: 0,
   lastUpdated: 0,
-  isFetching: false,
   topStories: [],
 
 };
@@ -39,18 +38,16 @@ const storyReducer = (state = initialState, action) => {
 
     // fetch stories from API
     case requestStories:
-    
-      return { ...state, isFetching: true };
+      return state;
 
     // do something with the data
     case receiveStories:
       return { ...state, topStories: action.topStories };
 
     case requestStory:
+      return state;
 
-        return state;
-
-    default:
+      default:
       return state;
 
   }

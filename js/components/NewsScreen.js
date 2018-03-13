@@ -12,10 +12,7 @@ import NewsPage from './NewsPage';
 import {
   addStoryAction,
   clearStoriesAction,
-  requestStoriesAction,
-  requestStoryAction,
   fetchTopStories,
-  fetchStory,
 } from '../actions/ActionCreator';
 
 class News extends Component {
@@ -46,7 +43,6 @@ class News extends Component {
 
     const {
       clearStoriesAction,
-      requestStoriesAction,
       fetchTopStories,
     } = this.props;
 
@@ -77,10 +73,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   addStoryAction,
   clearStoriesAction,
-  requestStoriesAction,
-  requestStoryAction,
-  fetchTopStories,
-  fetchStory,
+  fetchTopStories
 };
 
 const NewsScreen = connect(mapStateToProps, mapDispatchToProps)(News);
