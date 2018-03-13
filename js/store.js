@@ -57,7 +57,7 @@ const rootReducer = combineReducers({
 
 function configureStore() {
 
-  // allow use of redux debug tools in react native debugger
+  // allow use of functions as actions (via thunk) and redux debug tools in react native debugger
   let store = createStore(
     rootReducer,
     compose(applyMiddleware(thunkMiddleware), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())

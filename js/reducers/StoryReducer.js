@@ -40,14 +40,15 @@ const storyReducer = (state = initialState, action) => {
     case requestStories:
       return state;
 
-    // do something with the data
+    // save the story array
     case receiveStories:
       return { ...state, topStories: action.topStories };
 
+    // no state change for now, but nice to have for later
     case requestStory:
       return state;
 
-      default:
+    default:
       return state;
 
   }
